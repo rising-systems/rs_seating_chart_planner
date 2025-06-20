@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Override action_rs_location to set default filter -->
+    <record id="rs_locations_manager.action_rs_location" model="ir.actions.act_window">
+        <field name="context" eval="{'search_default_has_plan': True}" />
+        <field name="search_view_id" ref="rs_location_search_view_readonly" />
+    </record>
+</odoo> 

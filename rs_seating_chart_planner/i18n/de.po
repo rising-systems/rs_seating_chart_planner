@@ -1,0 +1,183 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* rs_seating_chart_planner
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-06 08:40+0000\n"
+"PO-Revision-Date: 2025-06-06 10:41+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.6\n"
+
+#. module: rs_seating_chart_planner
+#. odoo-javascript
+#: code:addons/rs_seating_chart_planner/static/src/components/svg_widget/svg_widget.js:0
+msgid "Accepted file extensions"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#. odoo-javascript
+#: code:addons/rs_seating_chart_planner/static/src/components/svg_widget/svg_widget.js:0
+msgid "Alternative text"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#. odoo-javascript
+#: code:addons/rs_seating_chart_planner/static/src/components/svg_widget/svg_widget.js:0
+msgid "Convert to webp"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_seat_assignment__create_uid
+msgid "Created by"
+msgstr "Erstellt von"
+
+#. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_seat_assignment__create_date
+msgid "Created on"
+msgstr "Erstellt am"
+
+#. module: rs_seating_chart_planner
+#. odoo-javascript
+#: code:addons/rs_seating_chart_planner/static/src/components/svg_widget/svg_widget.js:0
+msgid "Delay the apparition of the zoomed image with a value in milliseconds"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_seat_assignment__display_name
+msgid "Display Name"
+msgstr "Anzeige Name"
+
+#. module: rs_seating_chart_planner
+#: model_terms:ir.ui.view,arch_db:rs_seating_chart_planner.rs_location_search_view_readonly
+msgid "Employees"
+msgstr "Mitarbeiter"
+
+#. module: rs_seating_chart_planner
+#. odoo-javascript
+#: code:addons/rs_seating_chart_planner/static/src/components/svg_widget/svg_widget.js:0
+msgid "Enable zoom"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_seat_assignment__id
+msgid "ID"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#. odoo-javascript
+#: code:addons/rs_seating_chart_planner/static/src/components/svg_widget/svg_widget.js:0
+msgid "ImagePreview"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#. odoo-javascript
+#: code:addons/rs_seating_chart_planner/static/src/components/svg_widget/svg_widget.js:0
+msgid "Large"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_seat_assignment__write_uid
+msgid "Last Updated by"
+msgstr "Zuletzt aktualisiert von"
+
+#. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_seat_assignment__write_date
+msgid "Last Updated on"
+msgstr "Zuletzt aktualisiert am"
+
+#. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_seat_assignment__location_id
+msgid "Location"
+msgstr "Ort"
+
+#. module: rs_seating_chart_planner
+#. odoo-javascript
+#: code:addons/rs_seating_chart_planner/static/src/components/svg_widget/svg_widget.js:0
+msgid "Medium"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_seat_assignment__position_x
+msgid "Position X"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_seat_assignment__position_y
+msgid "Position Y"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#. odoo-javascript
+#: code:addons/rs_seating_chart_planner/static/src/components/svg_widget/svg_widget.js:0
+msgid "Preview image"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#: model:ir.model,name:rs_seating_chart_planner.model_rs_location
+msgid "RS Location"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#. odoo-javascript
+#: code:addons/rs_seating_chart_planner/static/src/components/svg_widget/svg_widget.js:0
+msgid "Reload"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location__svg_image
+msgid "SVG File"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#: model:ir.model,name:rs_seating_chart_planner.model_rs_location_seat_assignment
+msgid "Seat Assignment for a Location"
+msgstr "Sitzplatzzuordnung für einen Ort"
+
+#. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location__seat_assignments
+#: model_terms:ir.ui.view,arch_db:rs_seating_chart_planner.rs_location_form_view_inherit
+#: model_terms:ir.ui.view,arch_db:rs_seating_chart_planner.rs_location_seat_assignment_list_view
+msgid "Seat Assignments"
+msgstr "Sitzplatzzuweisungen"
+
+#. module: rs_seating_chart_planner
+#: model_terms:ir.ui.view,arch_db:rs_seating_chart_planner.rs_location_form_view_inherit
+msgid "Seating Chart"
+msgstr "Sitzplan"
+
+#. module: rs_seating_chart_planner
+#. odoo-javascript
+#: code:addons/rs_seating_chart_planner/static/src/components/svg_widget/svg_widget.js:0
+msgid "Size"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#. odoo-javascript
+#: code:addons/rs_seating_chart_planner/static/src/components/svg_widget/svg_widget.js:0
+msgid "Small"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_seat_assignment__user_id
+msgid "User"
+msgstr "Benutzer"
+
+#. module: rs_seating_chart_planner
+#. odoo-javascript
+#: code:addons/rs_seating_chart_planner/static/src/components/svg_widget/svg_widget.js:0
+msgid "Zoom delay"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#: model_terms:ir.ui.view,arch_db:rs_seating_chart_planner.rs_location_search_view_readonly
+msgid "has Plan"
+msgstr "mit Plan"

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Search View -->
+    <record id="rs_location_search_view_readonly" model="ir.ui.view">
+        <field name="name">rs.location.search.readonly</field>
+        <field name="model">rs.location</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="seat_assignments" string="Employees" />
+                <filter string="has Plan" name="has_plan" domain="[('svg_image', '!=', False)]" />
+            </search>
+        </field>
+    </record>
+</odoo>

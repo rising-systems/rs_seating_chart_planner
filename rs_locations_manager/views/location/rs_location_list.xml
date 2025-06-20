@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="rs_location_list_view" model="ir.ui.view">
+        <field name="name">rs.location.tree</field>
+        <field name="model">rs.location</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list string="Intervalle">
+                <field name="name" />
+                <field name="parent_id" widget="badge" />
+                <field name="child_ids" widget="many2many_tags" />
+            </list>
+        </field>
+    </record>
+</odoo>

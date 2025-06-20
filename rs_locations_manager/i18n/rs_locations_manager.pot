@@ -1,0 +1,240 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* rs_locations_manager
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-06 07:41+0000\n"
+"PO-Revision-Date: 2025-06-06 07:41+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.ui.menu,name:rs_locations_manager.menu_rs_location_admin
+msgid "Administration"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__child_ids
+msgid "Children"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,help:rs_locations_manager.field_rs_location__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__id
+msgid "ID"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,help:rs_locations_manager.field_rs_location__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,help:rs_locations_manager.field_rs_location__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,help:rs_locations_manager.field_rs_location__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: rs_locations_manager
+#: model_terms:ir.ui.view,arch_db:rs_locations_manager.rs_location_list_view
+msgid "Intervalle"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.ui.menu,name:rs_locations_manager.menu_rs_location_SVG_View
+msgid "Location View"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.ui.menu,name:rs_locations_manager.menu_rs_location_root
+msgid "Locations"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.actions.act_window,name:rs_locations_manager.action_rs_location_admin
+msgid "Manage Location"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__name
+msgid "Name"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,help:rs_locations_manager.field_rs_location__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,help:rs_locations_manager.field_rs_location__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__parent_id
+msgid "Parents"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model,name:rs_locations_manager.model_rs_location
+msgid "RS Location"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,field_description:rs_locations_manager.field_rs_location__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,help:rs_locations_manager.field_rs_location__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.model.fields,help:rs_locations_manager.field_rs_location__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: rs_locations_manager
+#: model:ir.actions.act_window,name:rs_locations_manager.action_rs_location
+msgid "View Location"
+msgstr ""

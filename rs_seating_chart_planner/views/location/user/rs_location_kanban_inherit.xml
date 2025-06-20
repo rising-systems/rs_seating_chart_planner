@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="rs_location_kanban_view_readonly" model="ir.ui.view">
+        <field name="name">rs.location.kanban.readonly</field>
+        <field name="model">rs.location</field>
+        <field name="inherit_id" ref="rs_locations_manager.rs_location_kanban_view_readonly" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('location-floor')]" position="after">
+                <field name="svg_image" class="text-center" widget="svg_view" options="{'size': [11, 11], 'avatar_size': 50}" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

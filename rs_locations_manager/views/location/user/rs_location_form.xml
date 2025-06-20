@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="rs_location_form_kanban_view" model="ir.ui.view">
+        <field name="name">rs.location.form.kanban</field>
+        <field name="model">rs.location</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form create="false" delete="false" edit="false" context="{ 'action_on_form': False}">
+                <group>
+                    <h2>
+                        <field name="parent_id" options="{'no_open': True}" />
+                        <field name="name" nolabel="1" />
+                    </h2>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

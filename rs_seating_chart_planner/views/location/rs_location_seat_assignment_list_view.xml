@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="rs_location_seat_assignment_list_view" model="ir.ui.view">
+        <field name="name">rs.location.seat.assignment.list</field>
+        <field name="model">rs.location.seat.assignment</field>
+        <field name="arch" type="xml">
+            <list string="Seat Assignments">
+                <field name="user_id" />
+                <field name="position_x" />
+                <field name="position_y" />
+            </list>
+        </field>
+    </record>
+</odoo>

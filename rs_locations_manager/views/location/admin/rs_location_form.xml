@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="rs_location_form_view" model="ir.ui.view">
+        <field name="name">rs.location.form</field>
+        <field name="model">rs.location</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="parent_id" widget="many2one_tags" />
+                        <field name="child_ids" widget="one2many" context="{'default_parent_id': id}" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

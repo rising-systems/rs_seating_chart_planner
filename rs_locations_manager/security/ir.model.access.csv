@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+rs_locations_user,rs.location user,rs_locations_manager.model_rs_location,base.group_user,1,0,0,0
+rs_locations_admin,rs.location admin,rs_locations_manager.model_rs_location,base.group_system,1,1,1,1

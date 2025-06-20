@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="rs_location_kanban_view_readonly" model="ir.ui.view">
+        <field name="name">rs.location.kanban.readonly</field>
+        <field name="model">rs.location</field>
+        <field name="arch" type="xml">
+            <kanban create="false">
+                <templates>
+                    <t t-name="card">
+                        <div class="w-100">
+                            <h2>
+                                <field name="parent_id" />
+                            </h2>
+                        </div>
+                        <div class="w-100 location-floor">
+                            <h2>
+                                <field name="name" />
+                            </h2>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+</odoo>

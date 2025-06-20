@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="rs_location_list_view_inherit" model="ir.ui.view">
+        <field name="name">rs.location.list.inherit</field>
+        <field name="model">rs.location</field>
+        <field name="inherit_id" ref="rs_locations_manager.rs_location_list_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="seat_assignments" widget="many2many_tags" options="{'no_create': True}" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_rs_location_admin" model="ir.actions.act_window">
+        <field name="name">Manage Location</field>
+        <field name="res_model">rs.location</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="view_ids" eval="[Command.clear(),
+                                      Command.create({'view_mode': 'kanban', 'view_id': ref('rs_location_kanban_view')}),
+                                      Command.create({'view_mode': 'form', 'view_id': ref('rs_location_form_view')}),
+                                      Command.create({'view_mode': 'list', 'view_id': ref('rs_location_list_view')}),
+                                   ]" />
+    </record>
+
+    <record id="action_rs_location" model="ir.actions.act_window">
+        <field name="name">View Location</field>
+        <field name="res_model">rs.location</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_ids" eval="[Command.clear(),
+                                      Command.create({'view_mode': 'kanban', 'view_id': ref('rs_location_kanban_view_readonly')}),
+                                      Command.create({'view_mode': 'form', 'view_id': ref('rs_location_form_kanban_view')}),
+                                      Command.create({'view_mode': 'list', 'view_id': ref('rs_location_list_view')}),
+                                   ]" />
+    </record>
+
+    <menuitem id="menu_rs_location_root" name="Locations" web_icon="rs_locations_manager,static/description/icon.png" sequence="10">
+        <menuitem id="menu_rs_location_SVG_View" name="Location View" action="action_rs_location" />
+        <menuitem id="menu_rs_location_admin" name="Administration" action="action_rs_location_admin" groups="base.group_system" />
+    </menuitem>
+
+
+</odoo>
