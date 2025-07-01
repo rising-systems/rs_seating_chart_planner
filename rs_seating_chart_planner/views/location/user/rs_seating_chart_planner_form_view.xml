@@ -6,7 +6,32 @@
         <field name="inherit_id" ref="rs_locations_manager.rs_location_form_kanban_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
-                <field name="svg_image" class="text-center user-form" widget="svg_view" readonly="1" nolabel="1" options="{'size': [50, 50], 'avatar_size': 50}" />
+                <field name="svg_image" class="text-center form-view" widget="svg_view" readonly="1" nolabel="1" options="{'avatar_size': 50}" />
+            </xpath>
+            <xpath expr="//form" position="inside">
+                <style>
+                    .o_form_renderer.o_form_nosheet.o_form_readonly.d-block {
+                    max-width: unset !important;
+                    padding-top: unset !important;
+                    padding-bottom: unset !important;
+                    height: 100% !important;
+                    overflow: hidden !important;
+                    }
+
+                    #svgContainer {
+                    height: inherit !important;
+                    width: 100%;
+                    overflow: hidden !important;
+                    }
+
+                    .d-inline-block.position-relative.opacity-trigger-hover {
+                    height: inherit !important;
+                    }
+
+                    .o_cp_pager{
+                    display: none;
+                    }
+                </style>
             </xpath>
         </field>
     </record>

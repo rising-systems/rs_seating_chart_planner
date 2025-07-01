@@ -12,7 +12,7 @@ class TestExtendedRsLocation(TransactionCase):
             'name': 'Seat User',
             'login': 'seat.user@test.rs.ag',
             'email': 'seat.user@test.rs.ag',
-            'groups_id': [Command.link([self.env.ref('base.group_user').id])],
+            'groups_id': [Command.link(self.env.ref('base.group_user').id)],
         })
 
         # Dummy SVG-Inhalt

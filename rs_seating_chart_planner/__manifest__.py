@@ -5,7 +5,7 @@
         Create and manage visual seating plans.
         Another awesome module by rising systems AG
         ''',
-    'version': '1.0.0',
+    'version': '1.0.2',
     'author': 'rising systems AG',
     'license': 'Other proprietary',
     'website': 'https://www.rising-systems.de/r/seatingchart',

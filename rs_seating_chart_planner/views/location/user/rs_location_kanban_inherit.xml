@@ -8,6 +8,50 @@
             <xpath expr="//div[hasclass('location-floor')]" position="after">
                 <field name="svg_image" class="text-center" widget="svg_view" options="{'size': [11, 11], 'avatar_size': 50}" />
             </xpath>
+            <xpath expr="//kanban" position="inside">
+                <style>
+                    .o_kanban_view .o_kanban_record .text-center {
+                    display: flex !important;
+                    justify-content: center !important;
+                    align-items: center !important;
+                    height: 200px !important;
+                    min-height: 200px !important;
+                    }
+
+                    .o_kanban_view .o_kanban_record .text-center .o_field_widget {
+                    display: flex !important;
+                    justify-content: center !important;
+                    align-items: center !important;
+                    width: 100% !important;
+                    height: 100% !important;
+                    }
+
+                    .o_kanban_view .o_kanban_record [name="svg_image"] {
+                    display: flex !important;
+                    justify-content: center !important;
+                    align-items: center !important;
+                    width: 100% !important;
+                    height: 100% !important;
+                    }
+
+                    .o_kanban_view .o_kanban_record #svgContainer {
+                    height: 180px !important;
+                    width: 100% !important;
+                    display: flex !important;
+                    justify-content: center !important;
+                    align-items: center !important;
+                    overflow: hidden !important;
+                    }
+
+                    .o_kanban_view .o_kanban_record .d-inline-block.position-relative.opacity-trigger-hover {
+                    height: 100% !important;
+                    width: 100% !important;
+                    display: flex !important;
+                    justify-content: center !important;
+                    align-items: center !important;
+                    }
+                </style>
+            </xpath>
         </field>
     </record>
 </odoo>
