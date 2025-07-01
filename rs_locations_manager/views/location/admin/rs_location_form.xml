@@ -13,7 +13,6 @@
                         <field name="child_ids" widget="one2many" context="{'default_parent_id': id}" />
                     </group>
                 </sheet>
-                <chatter />
             </form>
         </field>
     </record>

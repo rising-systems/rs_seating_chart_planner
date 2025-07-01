@@ -8,7 +8,6 @@
                 <field name="user_id" />
                 <field name="position_x" />
                 <field name="position_y" />
-                <field name="avatar_size" />
             </list>
         </field>
     </record>
