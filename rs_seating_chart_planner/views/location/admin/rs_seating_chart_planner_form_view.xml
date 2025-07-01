@@ -20,24 +20,9 @@
                     </page>
                     <page string="Seating Chart">
                         <field name="svg_image" invisible="svg_image" />
-                        <field name="svg_image" class="form-view" widget="svg_view" options="{'avatar_size': 50}" invisible="not svg_image" />
+                        <field name="svg_image" widget="svg_view" options="{'size': [43, 43], 'avatar_size': 50}" invisible="not svg_image" />
                     </page>
                 </notebook>
-            </xpath>
-            <xpath expr="//form" position="inside">
-                <style>
-                    .o_form_sheet.position-relative {
-                    height: fit-content !important;
-                    }
-
-                    .o_cp_pager{
-                    display: none;
-                    }
-
-                    .position-absolute.d-flex.justify-content-between.w-100.bottom-0.opacity-0.opacity-100-hover {
-                    z-index: 1000;
-                    }
-                </style>
             </xpath>
         </field>
     </record>
