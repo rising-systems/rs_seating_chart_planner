@@ -2,7 +2,7 @@
 <templates xml:space="preserve">
     <t t-name="svg_widget.ImagePreviewField" t-inherit="web.ImageField" t-inherit-mode="primary" >
         <xpath expr="//img" position="replace">
-          <div id="svgContainer" t-ref="svgContainer" t-att-style="'margin-top: 10px; width: ' + (props.width || 1000) + 'rem; height: ' + (props.height || 1000) + 'rem; overflow: auto;'">
+          <div id="svgContainer" t-ref="svgContainer" t-att-style="'width: ' + (props.width || 1000) + 'rem; height: ' + (props.height || 1000) + 'rem; overflow: auto;'">
         <!-- SVG wird per JS hier reingerendert -->
           </div>
         </xpath>
