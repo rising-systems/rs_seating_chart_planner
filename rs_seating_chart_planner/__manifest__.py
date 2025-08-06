@@ -14,6 +14,7 @@
     'application': False,
     'installable': True,
     'auto_install': False,
+    'images': ['static/description/images/store-cover.gif'],
     'depends': ['base', 'rs_locations_manager'],
     'data': [
         'security/ir.model.access.csv',
