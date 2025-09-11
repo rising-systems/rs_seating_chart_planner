@@ -2,8 +2,8 @@
 {
     'name': 'Seating Chart Planner',
     'summary': '''
-        Create and manage visual seating plans.
-        Another awesome module by rising systems AG
+        Visual seat plans to assign and track workplaces
+        - Another awesome module by rising systems AG
         ''',
     'version': '1.0.0',
     'author': 'rising systems AG',
