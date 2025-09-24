@@ -5,9 +5,9 @@
         <field name="model">rs.location</field>
         <field name="inherit_id" ref="rs_locations_manager.rs_location_form_view" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='child_ids']" position="after">
+            <xpath expr="//group" position="after">
                 <notebook>
-                    <page string="Seat Assignments">
+                    <page string="Seat Assignments" name="seat_assignments_page">
                         <field name="seat_assignments">
                             <list string="Seat Assignments" editable="bottom">
                                 <field name="user_id" />
