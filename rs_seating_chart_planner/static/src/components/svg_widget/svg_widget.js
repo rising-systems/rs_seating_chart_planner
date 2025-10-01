@@ -149,11 +149,11 @@ export class ImagePreviewField extends ImageField {
         // Get width and height, removing 'mm' units if present
         const width = parseFloat((svgEl.getAttribute("width") || 800).toString().replace('mm', ''));
         const height = parseFloat((svgEl.getAttribute("height") || 800).toString().replace('mm', ''));
-        
+
         // calculate the scaling ratio
         const scaling_ratio = width / height;
         this.props.width = this.props.height * scaling_ratio;
-        
+
         svgEl.setAttribute("viewBox", `0 0 ${width} ${height}`);
         svgEl.setAttribute("preserveAspectRatio", "xMidYMid meet");
         svgEl.setAttribute("width", "100%");
@@ -183,6 +183,53 @@ export class ImagePreviewField extends ImageField {
         });
     }
 
+    /**
+     * Detect MIME type from base64 data
+     * @param {string} base64 - base64 encoded data
+     * @returns {string} - detected MIME type
+     */
+    detectMimeTypeFromBase64(base64) {
+        if (!base64) return 'image/png';
+
+        // Remove any existing data URL prefix if present
+        const cleanBase64 = base64.replace(/^data:[^;]*;base64,/, '');
+
+        try {
+            // Decode first few bytes to check file signature
+            const binaryString = atob(cleanBase64.substring(0, 50));
+            const bytes = new Uint8Array(binaryString.length);
+            for (let i = 0; i < binaryString.length; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+
+            // Check file signatures (magic numbers)
+            if (bytes[0] === 0xFF && bytes[1] === 0xD8 && bytes[2] === 0xFF) {
+                return 'image/jpeg';
+            }
+            if (bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4E && bytes[3] === 0x47) {
+                return 'image/png';
+            }
+            if (bytes[0] === 0x47 && bytes[1] === 0x49 && bytes[2] === 0x46) {
+                return 'image/gif';
+            }
+            if (bytes[0] === 0x52 && bytes[1] === 0x49 && bytes[2] === 0x46 && bytes[3] === 0x46) {
+                return 'image/webp';
+            }
+
+            // Check for SVG (look for '<svg' or '<?xml')
+            const textStart = binaryString.substring(0, 20).toLowerCase();
+            if (textStart.includes('<svg') || textStart.includes('<?xml')) {
+                return 'image/svg+xml';
+            }
+
+            // Default fallback
+            return 'image/png';
+        } catch (error) {
+            console.warn('Could not detect MIME type, defaulting to PNG:', error);
+            return 'image/png';
+        }
+    }
+
     async fetchSeatAssignmentsAndProcessSvg() {
         if (this.model === "rs.location" && this.id && this.id !== "0") {
             let attempts = 0;
@@ -208,9 +255,16 @@ export class ImagePreviewField extends ImageField {
 
                     this.state.seatAssignments = seatAssignments.map(assignment => {
                         const user = users.find(u => u.id === assignment.user_id[0]);
+
+                        let avatar = "/web/static/img/user_placeholder.jpg";
+                        if (user && user.image_128) {
+                            const mimeType = this.detectMimeTypeFromBase64(user.image_128);
+                            avatar = `data:${mimeType};base64,${user.image_128}`;
+                        }
+
                         return {
                             ...assignment,
-                            avatar: user && user.image_128 ? `data:image/png;base64,${user.image_128}` : "/web/static/img/user_avatar.png",
+                            avatar: avatar,
                             user_details: user || {}
                         };
                     });
@@ -272,11 +326,11 @@ export class ImagePreviewField extends ImageField {
         // Normalisierung: SVG auf feste Referenzgröße skalieren
         const originalWidth = parseFloat((svgElement.getAttribute("width") || 800).toString().replace('mm', ''));
         const originalHeight = parseFloat((svgElement.getAttribute("height") || 800).toString().replace('mm', ''));
-        
+
         // Definiere eine Referenzgröße (z.B. 1000x1000) für konsistente Avatar-Größen
         const REFERENCE_SIZE = 1000;
         const scaleFactor = REFERENCE_SIZE / Math.max(originalWidth, originalHeight);
-        
+
         // Berechne normalisierte Avatar-Größe basierend auf dem Skalierungsfaktor
         const baseSize = this.props.avatar_size || 20;
         const normalizedAvatarSize = baseSize / scaleFactor;
@@ -286,7 +340,7 @@ export class ImagePreviewField extends ImageField {
 
         seatAssignments.forEach((assignment, index) => {
             const image = document.createElementNS("http://www.w3.org/2000/svg", "image");
-            
+
             // Verwende die normalisierte Größe für konsistente Darstellung
             const avatarOffset = normalizedAvatarSize / 2;
             image.setAttribute("x", assignment.position_x - avatarOffset);
@@ -377,7 +431,7 @@ export class ImagePreviewField extends ImageField {
             // Berechne den Offset basierend auf der normalisierten Avatar-Größe
             const avatarSize = parseFloat(imageElement.getAttribute("width"));
             const avatarOffset = avatarSize / 2;
-            
+
             const newX = parseFloat(imageElement.getAttribute("x")) + avatarOffset;
             const newY = parseFloat(imageElement.getAttribute("y")) + avatarOffset;
             assignment.position_x = newX;

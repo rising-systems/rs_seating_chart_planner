@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Seating Chart Planner',
+    'name': 'Sitzplan Planer',
     'summary': '''
-        Visual seat plans to assign and track workplaces
-        - Another awesome module by rising systems AG
+        Visuelle Sitzpläne zum Zuweisen und Verfolgen von Arbeitsplätzen
+        - Ein weiteres großartiges Modul von rising systems AG
         ''',
     'version': '1.0.0',
     'author': 'rising systems AG',
@@ -26,6 +26,7 @@
         'views/location/rs_location_seat_assignment_list_view.xml',
         'views/location/rs_location_list_inherit.xml',
         'views/location/rs_location_menu_inherit.xml',
+        'views/wizard/rs_location_add_users_wizard_form_view.xml',
     ],
     'assets': {
         'web.assets_backend': [

@@ -17,10 +17,13 @@
                                 <field name="position_y" optional="show" groups="base.group_no_one" />
                             </list>
                         </field>
+                        <div class="oe_button_box">
+                            <button name="action_add_multiple_users" type="object" string="Add Multiple Users" class="btn-primary" icon="fa-users" />
+                        </div>
                     </page>
                     <page string="Seating Chart">
                         <field name="svg_image" invisible="svg_image" />
-                        <field name="svg_image" widget="svg_view" options="{'size': [43, 43], 'avatar_size': 50}" invisible="not svg_image" />
+                        <field name="svg_image" widget="svg_view" options="{'size': [43, 43], 'avatar_size': 50, 'accepted_file_extensions': '.svg'}" invisible="not svg_image" />
                     </page>
                 </notebook>
             </xpath>
