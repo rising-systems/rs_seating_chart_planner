@@ -48,6 +48,9 @@ export class ImagePreviewField extends ImageField {
             selectedAvatarIndex: -1,
             isResizing: false,
             resizeHandleType: null,
+            isLoading: true,
+            svgReady: false,
+            isDragging: false,
         });
 
         this.minAvatarSize = 10;
@@ -62,21 +65,33 @@ export class ImagePreviewField extends ImageField {
         });
 
         onMounted(async () => {
-            this.renderSvg(this.container);
-            if (!this.state.modifiedSvgSrc) {
-                // No action needed here as the state is already initialized.
-                let attempts = 0;
-                while (!this.container.el && attempts < 10) {
-                    await new Promise(resolve => setTimeout(resolve, 100));
-                    attempts++;
-                }
+            // Wait for container to be available
+            let attempts = 0;
+            while (!this.container.el && attempts < 10) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+                attempts++;
+            }
 
-                if (this.container.el) {
-                    await this.fetchSeatAssignmentsAndProcessSvg();
+            if (!this.container.el) {
+                console.error("svgContainer could not be found.");
+                this.state.isLoading = false;
+                return;
+            }
+
+            // Load SVG data first, then render
+            try {
+                await this.fetchSeatAssignmentsAndProcessSvg();
+                this.state.svgReady = true;
+                this.renderSvg(this.container);
+                this.makeAvatarsDraggable();
+            } catch (error) {
+                console.error(" Error during SVG initialization:", error);
+            } finally {
+                this.state.isLoading = false;
+
+                // Critical fix: If we have SVG content after loading, render it immediately
+                if (this.state.modifiedSvgSrc && this.container.el) {
                     this.renderSvg(this.container);
-                    this.makeAvatarsDraggable();
-                } else {
-                    console.error("svgContainer could not be found.");
                 }
             }
         });
@@ -87,7 +102,11 @@ export class ImagePreviewField extends ImageField {
                 ? this.props.record.data.seat_assignments
                 : [];
             this.state.seatAssignments = assignments;
-            this.fetchSeatAssignmentsAndProcessSvg();
+
+            // Only re-fetch and render if component is already initialized
+            if (this.state.svgReady) {
+                this.fetchSeatAssignmentsAndProcessSvg();
+            }
         }, () => [this.props.record.data.seat_assignments]);
     }
 
@@ -139,7 +158,13 @@ export class ImagePreviewField extends ImageField {
     }
 
     renderSvg(container) {
-        if (!container) {
+        if (!container || !container.el) {
+            return;
+        }
+
+        // Show loading state if SVG is not ready
+        if (this.state.isLoading || !this.state.modifiedSvgSrc) {
+            container.el.innerHTML = '<div style="display: flex; justify-content: center; align-items: center; height: 200px; color: #666;"><i class="fa fa-spinner fa-spin"></i> Loading SVG...</div>';
             return;
         }
 
@@ -156,6 +181,7 @@ export class ImagePreviewField extends ImageField {
         const b64data = this.state.modifiedSvgSrc?.replace("data:image/svg+xml;base64,", "");
 
         if (!b64data) {
+            container.el.innerHTML = '<div style="display: flex; justify-content: center; align-items: center; height: 200px; color: #999;">No SVG data available</div>';
             return;
         }
 
@@ -185,6 +211,21 @@ export class ImagePreviewField extends ImageField {
 
         container.el.appendChild(svgEl);
 
+        // Force browser reflow and repaint to ensure SVG visibility
+        // This fixes the issue where SVG is in DOM but not visible until tab change
+        container.el.offsetHeight; // Force reflow
+        container.el.style.transform = 'translateZ(0)'; // Force repaint
+
+        // Use requestAnimationFrame for proper timing
+        requestAnimationFrame(() => {
+            container.el.style.transform = ''; // Clear the transform
+            // Double RAF to ensure rendering is complete
+            requestAnimationFrame(() => {
+                // Make avatars draggable after rendering is complete
+                this.makeAvatarsDraggable();
+            });
+        });
+
         if (this.state.selectedAvatarIndex !== -1 && !this.isReadOnly) {
             setTimeout(() => this.renderResizeHandles(), 10);
         }
@@ -197,11 +238,21 @@ export class ImagePreviewField extends ImageField {
 
         const avatars = container.querySelectorAll(".draggable-avatar");
         avatars.forEach((imageElement) => {
-            imageElement.addEventListener("mousedown", (event) => {
+            // Remove any existing event listeners to prevent duplicates
+            imageElement.removeEventListener("mousedown", this.handleMouseDown);
+
+            // Create a bound handler for this element
+            const handleMouseDown = (event) => {
                 const index = imageElement.dataset.index;
                 const assignment = this.state.seatAssignments[index];
                 this.startDrag(event, assignment, imageElement);
-            });
+            };
+
+            // Store the handler for later removal
+            imageElement._mouseDownHandler = handleMouseDown;
+
+            // Add the event listener
+            imageElement.addEventListener("mousedown", handleMouseDown);
         });
     }
 
@@ -253,7 +304,29 @@ export class ImagePreviewField extends ImageField {
     }
 
     async fetchSeatAssignmentsAndProcessSvg() {
-        if (this.model === "rs.location" && this.id && this.id !== "0") {
+        // First, try to load the base SVG regardless of model type
+        await this.loadBaseSvg();
+
+        // Then, if it's a location model, add seat assignments
+        if (this.model === "rs.location") {
+            // Handle new records (ID "0") - just show the base SVG without seat assignments
+            if (this.id === "0") {
+                if (this.baseSvgContent && this.baseSvgContent.includes('<svg')) {
+                    this.state.modifiedSvgSrc = `data:image/svg+xml;base64,${btoa(this.baseSvgContent)}`;
+
+                    // For new records, we're done processing - set loading to false and render immediately
+                    this.state.isLoading = false;
+
+                    if (this.container.el) {
+                        this.renderSvg(this.container);
+                    }
+                } else {
+                }
+                return; // Skip seat assignment processing for new records
+            }
+
+            // Process existing records with seat assignments
+            if (this.id && this.id !== "0") {
             let attempts = 0;
             const maxAttempts = 3;
 
@@ -291,38 +364,23 @@ export class ImagePreviewField extends ImageField {
                         };
                     });
 
-                    let svgSrc;
+                    // Use the base SVG content that was already loaded
+                    let svgContent = this.baseSvgContent;
 
-                    if (this.props.name) {
-                        svgSrc = `/web/image/${this.model}/${this.id}/${this.props.name}?format=svg`;
-                    } else {
-                        console.error("this.props.name is undefined. Unable to construct SVG URL.");
-                        return;
-                    }
-
-                    let svgContent;
-                    if (svgSrc.startsWith("data:image/svg+xml;base64,")) {
-                        const base64String = svgSrc.replace("data:image/svg+xml;base64,", "");
-                        svgContent = atob(base64String);
-                    } else {
-                        const response = await fetch(svgSrc, {
-                            headers: { 'Accept': 'image/svg+xml' },
-                        });
-                        if (!response.ok) {
-                            throw new Error(`Failed to fetch SVG: ${response.status} ${response.statusText}`);
-                        }
-                        svgContent = await response.text();
-                    }
-
-                    if (!svgContent.includes('<svg')) {
-                        console.error("Content is not a valid SVG, using default:", svgContent);
+                    if (!svgContent || !svgContent.includes('<svg')) {
+                        console.error("Base SVG content not available, using fallback");
                         svgContent = `<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="300" height="300" fill="white"/></svg>`;
                     }
 
                     const modifiedSvg = this.addAvatarsToSvg(svgContent, this.state.seatAssignments);
                     this.state.modifiedSvgSrc = `data:image/svg+xml;base64,${btoa(modifiedSvg)}`;
-                    this.renderSvg(this.container);
-                    this.makeAvatarsDraggable();
+
+                    // Only render if component is mounted and ready
+                    if (this.container.el && this.state.svgReady) {
+                        this.renderSvg(this.container);
+                        this.makeAvatarsDraggable();
+                    } else {
+                    }
 
                     // Exit retry loop on success
                     return;
@@ -337,6 +395,124 @@ export class ImagePreviewField extends ImageField {
                     }
                 }
             }
+            } // Close the "if (this.id && this.id !== "0")" block
+        } else {
+            // For non-location models or when seat assignments aren't needed,
+            // just ensure the base SVG was loaded - rendering will happen in onMounted
+        }
+    }
+
+    async loadBaseSvg() {
+        try {
+            let svgContent;
+
+            // Check if we have the SVG field name
+            if (!this.props.name) {
+                console.error(" this.props.name is undefined. Unable to construct SVG URL.");
+                // Use fallback SVG
+                this.state.modifiedSvgSrc = `data:image/svg+xml;base64,${btoa('<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="300" height="300" fill="lightgray"/><text x="150" y="150" text-anchor="middle" fill="black">No SVG Available</text></svg>')}`;
+                return;
+            }
+
+            // For new records (ID=0), get the data directly from the form field
+            if (this.id === "0") {
+                const fieldValue = this.props.record.data[this.props.name];
+                if (fieldValue) {
+                    try {
+                        // The field value should be base64 encoded
+                        const decodedContent = atob(fieldValue);
+                        if (decodedContent.includes('<svg') || decodedContent.includes('<?xml')) {
+                            svgContent = decodedContent;
+                        } else {
+                        }
+                    } catch (decodeError) {
+                    }
+                } else {
+                }
+            }
+
+            // If we didn't get SVG content from form field (or for existing records), try server fetch
+            if (!svgContent && this.id !== "0") {
+                // Try multiple approaches to get the original SVG file
+                // First, try to get the raw binary data through the ORM
+                try {
+                    const recordData = await this.orm.read(this.model, [parseInt(this.id)], [this.props.name]);
+                    if (recordData && recordData.length > 0 && recordData[0][this.props.name]) {
+                        const rawData = recordData[0][this.props.name];
+
+                        // Try to decode as base64
+                        try {
+                            const decodedContent = atob(rawData);
+                            if (decodedContent.includes('<svg') || decodedContent.includes('<?xml')) {
+                                svgContent = decodedContent;
+                            }
+                        } catch (decodeError) {
+                        }
+                    }
+                } catch (ormError) {
+                }
+
+                // If ORM approach failed, try the standard URL approach
+                if (!svgContent) {
+                    // Try different URL formats
+                    const urlsToTry = [
+                        `/web/content/${this.model}/${this.id}/${this.props.name}?download=true`,
+                        `/web/image/${this.model}/${this.id}/${this.props.name}?format=svg`,
+                        `/web/image/${this.model}/${this.id}/${this.props.name}`,
+                    ];
+
+                    for (const url of urlsToTry) {
+                        try {
+                            const response = await fetch(url, {
+                                headers: { 'Accept': 'image/svg+xml,*/*' },
+                            });
+                            if (response.ok) {
+                                const content = await response.text();
+                                if (content.includes('<svg') || content.includes('<?xml')) {
+                                    svgContent = content;
+                                    break;
+                                }
+                            }
+                        } catch (fetchError) {
+                        }
+                    }
+                }
+            }
+
+            // Check if content is actually SVG
+            if (!svgContent.includes('<svg')) {
+                // Detect file type for better error messaging
+                const isPNG = svgContent.startsWith('PNG') || svgContent.includes('PNG');
+                const isJPG = svgContent.startsWith('ÿØÿà') || svgContent.includes('JFIF');
+
+                let fileType = 'unknown format';
+                if (isPNG) fileType = 'PNG image';
+                else if (isJPG) fileType = 'JPEG image';
+
+                console.error(`❌ Content is not a valid SVG (detected: ${fileType}), using fallback. Content preview:`, svgContent.substring(0, 100));
+
+                // Create a user-friendly fallback SVG
+                svgContent = `<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="300" height="300" fill="#f8f9fa" stroke="#dee2e6" stroke-width="2"/>
+                    <text x="150" y="130" text-anchor="middle" fill="#6c757d" font-family="Arial" font-size="14">Invalid SVG file</text>
+                    <text x="150" y="150" text-anchor="middle" fill="#6c757d" font-family="Arial" font-size="12">Detected: ${fileType}</text>
+                    <text x="150" y="170" text-anchor="middle" fill="#6c757d" font-family="Arial" font-size="12">Please upload an SVG file</text>
+                </svg>`;
+            }
+
+            // For non-location models, just use the base SVG without avatars
+            if (this.model !== "rs.location") {
+                this.state.modifiedSvgSrc = `data:image/svg+xml;base64,${btoa(svgContent)}`;
+            } else {
+                // For location models, we'll process avatars later in the location-specific logic
+                // Just store the base content for now
+                this.baseSvgContent = svgContent;
+            }
+
+        } catch (error) {
+            console.error(" Error loading base SVG:", error);
+            // Fallback SVG
+            this.state.modifiedSvgSrc = `data:image/svg+xml;base64,${btoa('<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="300" height="300" fill="lightgray"/><text x="150" y="150" text-anchor="middle" fill="red">Error Loading SVG</text></svg>')}`;
         }
     }
 
@@ -388,11 +564,7 @@ export class ImagePreviewField extends ImageField {
 
             image.dataset.index = index;
 
-            if (!this.isReadOnly) {
-                image.addEventListener("mousedown", (event) => {
-                    this.startDrag(event, assignment, image);
-                });
-            }
+            // Don't add event listeners here - they will be added in makeAvatarsDraggable()
 
             group.appendChild(image);
         });
@@ -420,7 +592,26 @@ export class ImagePreviewField extends ImageField {
         event.preventDefault();
         event.stopPropagation();
 
+        // Prevent multiple drag operations
+        if (this.state.isDragging) {
+            return;
+        }
+
+        // Validate input parameters
+        if (!assignment || !imageElement) {
+            console.error("Invalid parameters for startDrag - assignment:", assignment, "imageElement:", imageElement);
+            return;
+        }
+
         const svg = imageElement.ownerSVGElement;
+        if (!svg) {
+            console.error("Cannot find SVG element for drag operation");
+            return;
+        }
+
+        // Set dragging flag
+        this.state.isDragging = true;
+
         const pt = svg.createSVGPoint();
         pt.x = event.clientX;
         pt.y = event.clientY;
@@ -438,6 +629,14 @@ export class ImagePreviewField extends ImageField {
         const initialY = parseFloat(imageElement.getAttribute("y"));
 
         const onMouseMove = (moveEvent) => {
+            // Validate that we still have valid assignment and imageElement
+            if (!assignment || !imageElement) {
+                console.warn("Assignment or imageElement undefined during drag, stopping drag operation");
+                document.removeEventListener("mousemove", onMouseMove);
+                document.removeEventListener("mouseup", onMouseUp);
+                return;
+            }
+
             const movePt = svg.createSVGPoint();
             movePt.x = moveEvent.clientX;
             movePt.y = moveEvent.clientY;
@@ -462,6 +661,15 @@ export class ImagePreviewField extends ImageField {
         };
 
         const onMouseUp = async () => {
+            // Validate that we still have valid assignment and imageElement
+            if (!assignment || !imageElement) {
+                console.warn("Assignment or imageElement undefined during mouseup, cleaning up event listeners");
+                document.removeEventListener("mousemove", onMouseMove);
+                document.removeEventListener("mouseup", onMouseUp);
+                this.state.isDragging = false;
+                return;
+            }
+
             // Update the position in the state
             // Berechne den Offset basierend auf der normalisierten Avatar-Größe
             const avatarSize = parseFloat(imageElement.getAttribute("width"));
@@ -473,16 +681,21 @@ export class ImagePreviewField extends ImageField {
             assignment.position_y = newY;
 
             // Save the updated position to the backend
-            await this.orm.write("rs.location.seat.assignment", [assignment.id], {
-                position_x: newX,
-                position_y: newY,
-            });
+            try {
+                await this.orm.write("rs.location.seat.assignment", [assignment.id], {
+                    position_x: newX,
+                    position_y: newY,
+                });
 
-            await this.props.record.load();
+                await this.props.record.load();
+            } catch (error) {
+                console.error("Error saving avatar position:", error);
+            }
 
-            // Remove event listeners
+            // Remove event listeners and reset dragging flag
             document.removeEventListener("mousemove", onMouseMove);
             document.removeEventListener("mouseup", onMouseUp);
+            this.state.isDragging = false;
         };
 
         document.addEventListener("mousemove", onMouseMove);
