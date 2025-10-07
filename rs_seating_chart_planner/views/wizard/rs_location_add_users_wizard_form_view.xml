@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="rs_location_add_users_wizard_form_view" model="ir.ui.view">
+        <field name="name">rs.location.add.users.wizard.form</field>
+        <field name="model">rs.location.add.users.wizard</field>
+        <field name="arch" type="xml">
+            <form string="User">
+                <group>
+                    <field name="location_id" readonly="1" />
+                    <field name="available_user_ids" invisible="1" />
+                    <field name="user_ids" widget="many2many_tags"
+                        placeholder="Select users to add as seat assignments..."
+                        options="{'no_create': True}"
+                        domain="[('id', 'in', available_user_ids)]" />
+                </group>
+                <footer>
+                    <button name="action_add_users" type="object" string="Add Users" class="btn-primary" />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

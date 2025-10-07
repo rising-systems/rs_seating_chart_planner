@@ -5,22 +5,27 @@
         <field name="model">rs.location</field>
         <field name="inherit_id" ref="rs_locations_manager.rs_location_form_view" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='child_ids']" position="after">
+            <xpath expr="//group" position="after">
                 <notebook>
-                    <page string="Seat Assignments">
+                    <page string="Seat Assignments" name="seat_assignments_page">
                         <field name="seat_assignments">
                             <list string="Seat Assignments" editable="bottom">
                                 <field name="user_id" />
                                 <field name="position_x" optional="hide" readonly="1" groups="!base.group_no_one" />
                                 <field name="position_y" optional="hide" readonly="1" groups="!base.group_no_one" />
+                                <field name="avatar_size" optional="hide" readonly="1" groups="!base.group_no_one" />
                                 <field name="position_x" optional="show" groups="base.group_no_one" />
                                 <field name="position_y" optional="show" groups="base.group_no_one" />
+                                <field name="avatar_size" optional="show" groups="base.group_no_one" />
                             </list>
                         </field>
+                        <div class="oe_button_box">
+                            <button name="action_add_multiple_users" type="object" string="Add Multiple Users" class="btn-primary" icon="fa-users" />
+                        </div>
                     </page>
                     <page string="Seating Chart">
-                        <field name="svg_image" invisible="svg_image" />
-                        <field name="svg_image" widget="svg_view" options="{'size': [43, 43], 'avatar_size': 50}" invisible="not svg_image" />
+                        <field name="svg_image" invisible="svg_image" options="{'size': [43, 43], 'avatar_size': 50, 'accepted_file_extensions': '.svg'}" />
+                        <field name="svg_image" widget="svg_view" options="{'size': [43, 43], 'avatar_size': 50, 'accepted_file_extensions': '.svg'}" invisible="not svg_image" />
                     </page>
                 </notebook>
             </xpath>

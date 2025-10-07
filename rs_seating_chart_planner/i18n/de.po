@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-06-06 08:40+0000\n"
-"PO-Revision-Date: 2025-06-06 10:41+0200\n"
+"PO-Revision-Date: 2025-09-25 14:50+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.3.1\n"
 
 #. module: rs_seating_chart_planner
 #. odoo-javascript
@@ -95,11 +95,6 @@ msgid "Last Updated on"
 msgstr "Zuletzt aktualisiert am"
 
 #. module: rs_seating_chart_planner
-#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_seat_assignment__location_id
-msgid "Location"
-msgstr "Ort"
-
-#. module: rs_seating_chart_planner
 #. odoo-javascript
 #: code:addons/rs_seating_chart_planner/static/src/components/svg_widget/svg_widget.js:0
 msgid "Medium"
@@ -133,26 +128,9 @@ msgid "Reload"
 msgstr ""
 
 #. module: rs_seating_chart_planner
-#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location__svg_image
-msgid "SVG File"
-msgstr ""
-
-#. module: rs_seating_chart_planner
 #: model:ir.model,name:rs_seating_chart_planner.model_rs_location_seat_assignment
 msgid "Seat Assignment for a Location"
 msgstr "Sitzplatzzuordnung für einen Ort"
-
-#. module: rs_seating_chart_planner
-#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location__seat_assignments
-#: model_terms:ir.ui.view,arch_db:rs_seating_chart_planner.rs_location_form_view_inherit
-#: model_terms:ir.ui.view,arch_db:rs_seating_chart_planner.rs_location_seat_assignment_list_view
-msgid "Seat Assignments"
-msgstr "Sitzplatzzuweisungen"
-
-#. module: rs_seating_chart_planner
-#: model_terms:ir.ui.view,arch_db:rs_seating_chart_planner.rs_location_form_view_inherit
-msgid "Seating Chart"
-msgstr "Sitzplan"
 
 #. module: rs_seating_chart_planner
 #. odoo-javascript
@@ -181,3 +159,73 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:rs_seating_chart_planner.rs_location_search_view_readonly
 msgid "has Plan"
 msgstr "mit Plan"
+
+#. module: rs_seating_chart_planner
+#: code:addons/rs_seating_chart_planner/__manifest__.py:0
+msgid "Seating Chart Planner"
+msgstr "Sitzplan Planer"
+
+#. module: rs_seating_chart_planner
+#: code:addons/rs_seating_chart_planner/__manifest__.py:0
+msgid "Visual seat plans to assign and track workplaces\n"
+"- Another awesome module by rising systems AG"
+msgstr "Visuelle Sitzpläne zum Zuweisen und Verfolgen von Arbeitsplätzen\n"
+"- Ein weiteres großartiges Modul von rising systems AG"
+
+#. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location__svg_image
+msgid "SVG File"
+msgstr "SVG-Datei"
+
+#. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_add_users_wizard__location_id
+msgid "Location"
+msgstr "Standort"
+
+#. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_add_users_wizard__user_ids
+msgid "Users to Add"
+msgstr "Hinzuzufügende Benutzer"
+
+#. module: rs_seating_chart_planner
+#: model:ir.model.fields,help:rs_seating_chart_planner.field_rs_location_add_users_wizard__user_ids
+msgid "Select multiple users to add as seat assignments"
+msgstr "Wählen Sie mehrere Benutzer aus, um sie als Sitzplatz-Zuweisungen hinzuzufügen"
+
+#. module: rs_seating_chart_planner
+#: model:ir.model,name:rs_seating_chart_planner.model_rs_location_add_users_wizard
+msgid "Wizard to add multiple users to location seat assignments"
+msgstr "Assistent zum Hinzufügen mehrerer Benutzer zu Standort-Sitzplatz-Zuweisungen"
+
+#. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location__seat_assignments
+#: model_terms:ir.ui.view,arch_db:rs_seating_chart_planner.rs_location_form_view_inherit
+#: model_terms:ir.ui.view,arch_db:rs_seating_chart_planner.rs_location_seat_assignment_list_view
+msgid "Seat Assignments"
+msgstr "Sitzplatz-Zuweisungen"
+
+#. module: rs_seating_chart_planner
+#: model_terms:ir.ui.view,arch_db:rs_seating_chart_planner.rs_location_form_view_inherit
+msgid "Seating Chart"
+msgstr "Sitzplan"
+
+#. module: rs_seating_chart_planner
+#: model_terms:ir.ui.view,arch_db:rs_seating_chart_planner.rs_location_form_view_inherit
+msgid "Add Multiple Users"
+msgstr "Mehrere Benutzer hinzufügen"
+
+#. module: rs_seating_chart_planner
+#: model_terms:ir.ui.view,arch_db:rs_seating_chart_planner.rs_location_add_users_wizard_form_view
+msgid "Add Users"
+msgstr "Benutzer hinzufügen"
+
+#. module: rs_seating_chart_planner
+#: model_terms:ir.ui.view,arch_db:rs_seating_chart_planner.rs_location_add_users_wizard_form_view
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: rs_seating_chart_planner
+#: model_terms:ir.ui.view,arch_db:rs_seating_chart_planner.rs_location_add_users_wizard_form_view
+msgid "Select users to add as seat assignments..."
+msgstr "Benutzer auswählen, um sie als Sitzplatz-Zuweisungen hinzuzufügen..."
+

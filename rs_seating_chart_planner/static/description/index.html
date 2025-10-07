@@ -1,0 +1,119 @@
+<style>
+    @font-face {
+        font-family: 'Aeonik';
+        src: url('fonts/Aeonik-Regular.otf') format('otf');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Aeonik';
+        src: url('fonts/Aeonik-Bold.otf') format('otf');
+        font-weight: bold;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Inter';
+        src: url('fonts/Inter.ttf') format('ttf');
+        font-weight: normal;
+        font-style: normal;
+    }
+    
+</style>
+<div class="container-fluid" style="background-color: black; color: white;">
+    <div class="col px-2 rounded-3 mt-4 mb-2 mx-6">
+        <div class="text-center">
+            <div style="display: inline-flex; gap: 20px; align-items: center;">
+                <img src="images/rs-logo_ow.svg" class="img-fluid"
+                    style="width: 420px; margin-right: 40px; height: auto;" alt="RS Logo">
+                <div style="width: 9px;">
+                    <div style="background-color: transparent;height: 46px;"></div>
+                    <div style="background-color:white; height: 65px;"></div>
+                    <div style="background-color: transparent;height: 30px;"></div>
+                </div>
+                <img src="images/odoo_logo_inverted.svg" class="img-fluid"
+                    style="width: 255px; height: auto; padding-bottom: 21px; border-left: solid white 5px;"
+                    alt="Odoo Logo">
+            </div>
+        </div>
+        <div class="row text-center">
+            <h2
+                style="font-family: 'Aeonik', sans-serif; font-weight: bold; text-align: center; color: #F86311; font-size: 2.5rem;">
+                RS Seating Chart Planner - <br>
+                Fixed Seating Visualization for Odoo
+            </h2>
+        </div>
+        <div class="row">
+            <p style="font-family: 'Inter', sans-serif; font-size: 22px;">
+                <b>Visual fixed-seating planner for Odoo with drag & drop on SVG floorplans.</b><br><br>
+                RS Seating Chart Planner is a visual seating module for Odoo that lets you define buildings, floors, and
+                rooms, upload SVG plans, and assign users to seats using a drag & drop interface.<br><br>
+                Using a clean interface and Odoo’s native views, this module helps HR, facility teams, and receptionists
+                quickly locate and display where employees are seated.
+            </p>
+        </div>
+        <br>
+        <div class="row">
+            <h5 style="color: white;">Main Features:</h5>
+            <p style="font-family: 'Inter', sans-serif; font-size: 22px;">
+                <i class="fa fa-check" aria-hidden="true"></i> SVG floorplans per location<br>
+                <i class="fa fa-check" aria-hidden="true"></i> Drag & drop seating assignment<br>
+                <i class="fa fa-check" aria-hidden="true"></i> Avatar pop-ups with user info<br>
+                <i class="fa fa-check" aria-hidden="true"></i> Hierarchical locations (building &#x2192; floor &#x2192; room)<br>
+                <i class="fa fa-check" aria-hidden="true"></i> Quick search for users<br>
+                <i class="fa fa-check" aria-hidden="true"></i> Admin-only placement control<br>
+                <i class="fa fa-check" aria-hidden="true"></i> Open Source (AGPL-3.0)
+            </p>
+            <br>
+            <h5 style="color: white;">Use Cases:</h5>
+            <ul style="font-family: 'Inter', sans-serif; font-size: 22px; margin-left: 57px;">
+                <li>Onboarding: help new hires find team members</li>
+                <li>Facility planning: assign assets by location</li>
+                <li>Security & safety: know who is seated where</li>
+                <li>Visitor reception: quick visual lookup</li>
+            </ul>
+        </div>
+
+        <div id="rsCarousel" class="row carousel slide my-5" data-bs-ride="carousel">
+            <div class="carousel-inner text-center">
+                <div class="carousel-item active text-center justify-content-center">
+                    <img src="images/01.png" class="img-fluid" style="max-width: 800px; width: 100%;" alt="Image 01">
+                </div>
+                <div class="carousel-item text-center justify-content-center">
+                    <img src="images/02.png" class="img-fluid" style="max-width: 800px; width: 100%;" alt="Image 02">
+                </div>
+                <div class="carousel-item text-center justify-content-center">
+                    <img src="images/03.png" class="img-fluid" style="max-width: 800px; width: 100%;" alt="Image 03">
+                </div>
+                <div class="carousel-item text-center justify-content-center">
+                    <img src="images/04.png" class="img-fluid" style="max-width: 800px; width: 100%;" alt="Image 04">
+                </div>
+                <div class="carousel-item text-center justify-content-center">
+                    <img src="images/05.png" class="img-fluid" style="max-width: 800px; width: 100%;" alt="Image 05">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#rsCarousel" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#rsCarousel" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </a>
+        </div>
+
+        <div class="row text-center">
+            <h3 style="color: #F86311; text-align: center;">Organize your seating plan today
+                <br> or design something entirely new!
+            </h3>
+            <div class="text-center my-4">
+                <img src="images/banner.png" class="img-fluid" style="width: 100%;">
+            </div>
+        </div>
+
+        <div class="text-center" style="margin-bottom: 50px;">
+            <img src="images/rs-logo_ow.svg" class="img-fluid" style="width: 400px;">
+        </div>
+    </div>
+</div>

@@ -14,7 +14,6 @@ class TestRsLocationSeatAssignment(TransactionCase):
             'name': 'Test User',
             'login': 'test_user@test.rs.ag',
             'email': 'test_user@test.rs.ag',
-            'groups_id': [(6, 0, [self.env.ref('base.group_user').id])],  # Interner Nutzer
         })
 
     def test_create_seat_assignment(self):

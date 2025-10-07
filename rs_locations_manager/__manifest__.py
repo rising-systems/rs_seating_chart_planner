@@ -16,6 +16,7 @@
     'application': True,
     'installable': True,
     'auto_install': False,
+    'images': ['static/description/images/store-cover.gif'],
     'depends': ['base', 'mail'],
     'data': [
         'security/ir.model.access.csv',

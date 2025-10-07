@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 rs_seating_chart_planner.access_rs_location_seat_assignment,access_rs_location_seat_assignment,rs_seating_chart_planner.model_rs_location_seat_assignment,base.group_user,1,1,1,1
+rs_seating_chart_planner.access_rs_location_add_users_wizard,access_rs_location_add_users_wizard,rs_seating_chart_planner.model_rs_location_add_users_wizard,base.group_user,1,1,1,1

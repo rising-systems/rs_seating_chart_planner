@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0+e\n"
+"Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-06 08:40+0000\n"
-"PO-Revision-Date: 2025-06-06 08:40+0000\n"
+"POT-Creation-Date: 2025-09-25 12:48+0000\n"
+"PO-Revision-Date: 2025-09-25 12:48+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,9 +22,25 @@ msgid "Accepted file extensions"
 msgstr ""
 
 #. module: rs_seating_chart_planner
+#: model_terms:ir.ui.view,arch_db:rs_seating_chart_planner.rs_location_add_users_wizard_form_view
+#: model_terms:ir.ui.view,arch_db:rs_seating_chart_planner.rs_location_form_view_inherit
+msgid "Add Multiple Users"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#: model_terms:ir.ui.view,arch_db:rs_seating_chart_planner.rs_location_add_users_wizard_form_view
+msgid "Add Users"
+msgstr ""
+
+#. module: rs_seating_chart_planner
 #. odoo-javascript
 #: code:addons/rs_seating_chart_planner/static/src/components/svg_widget/svg_widget.js:0
 msgid "Alternative text"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#: model_terms:ir.ui.view,arch_db:rs_seating_chart_planner.rs_location_add_users_wizard_form_view
+msgid "Cancel"
 msgstr ""
 
 #. module: rs_seating_chart_planner
@@ -34,11 +50,13 @@ msgid "Convert to webp"
 msgstr ""
 
 #. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_add_users_wizard__create_uid
 #: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_seat_assignment__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_add_users_wizard__create_date
 #: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_seat_assignment__create_date
 msgid "Created on"
 msgstr ""
@@ -50,6 +68,8 @@ msgid "Delay the apparition of the zoomed image with a value in milliseconds"
 msgstr ""
 
 #. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location__display_name
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_add_users_wizard__display_name
 #: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_seat_assignment__display_name
 msgid "Display Name"
 msgstr ""
@@ -66,6 +86,8 @@ msgid "Enable zoom"
 msgstr ""
 
 #. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location__id
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_add_users_wizard__id
 #: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_seat_assignment__id
 msgid "ID"
 msgstr ""
@@ -83,16 +105,19 @@ msgid "Large"
 msgstr ""
 
 #. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_add_users_wizard__write_uid
 #: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_seat_assignment__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_add_users_wizard__write_date
 #: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_seat_assignment__write_date
 msgid "Last Updated on"
 msgstr ""
 
 #. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_add_users_wizard__location_id
 #: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_seat_assignment__location_id
 msgid "Location"
 msgstr ""
@@ -153,6 +178,16 @@ msgid "Seating Chart"
 msgstr ""
 
 #. module: rs_seating_chart_planner
+#: model:ir.model.fields,help:rs_seating_chart_planner.field_rs_location_add_users_wizard__user_ids
+msgid "Select multiple users to add as seat assignments"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#: model_terms:ir.ui.view,arch_db:rs_seating_chart_planner.rs_location_add_users_wizard_form_view
+msgid "Select users to add as seat assignments..."
+msgstr ""
+
+#. module: rs_seating_chart_planner
 #. odoo-javascript
 #: code:addons/rs_seating_chart_planner/static/src/components/svg_widget/svg_widget.js:0
 msgid "Size"
@@ -167,6 +202,16 @@ msgstr ""
 #. module: rs_seating_chart_planner
 #: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_seat_assignment__user_id
 msgid "User"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#: model:ir.model.fields,field_description:rs_seating_chart_planner.field_rs_location_add_users_wizard__user_ids
+msgid "Users to Add"
+msgstr ""
+
+#. module: rs_seating_chart_planner
+#: model:ir.model,name:rs_seating_chart_planner.model_rs_location_add_users_wizard
+msgid "Wizard to add multiple users to location seat assignments"
 msgstr ""
 
 #. module: rs_seating_chart_planner
