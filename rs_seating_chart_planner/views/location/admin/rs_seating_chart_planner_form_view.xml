@@ -13,8 +13,10 @@
                                 <field name="user_id" />
                                 <field name="position_x" optional="hide" readonly="1" groups="!base.group_no_one" />
                                 <field name="position_y" optional="hide" readonly="1" groups="!base.group_no_one" />
+                                <field name="avatar_size" optional="hide" readonly="1" groups="!base.group_no_one" />
                                 <field name="position_x" optional="show" groups="base.group_no_one" />
                                 <field name="position_y" optional="show" groups="base.group_no_one" />
+                                <field name="avatar_size" optional="show" groups="base.group_no_one" />
                             </list>
                         </field>
                         <div class="oe_button_box">

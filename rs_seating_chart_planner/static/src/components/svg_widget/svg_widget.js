@@ -45,7 +45,14 @@ export class ImagePreviewField extends ImageField {
         this.state = useState({
             seatAssignments: [],
             modifiedSvgSrc: null,
+            selectedAvatarIndex: -1,
+            isResizing: false,
+            resizeHandleType: null,
         });
+
+        this.minAvatarSize = 10;
+        this.maxAvatarSize = 100;
+        this.handleSize = 8;
 
         onWillStart(async () => {
             // Wait for props.record to be available
@@ -105,18 +112,29 @@ export class ImagePreviewField extends ImageField {
     }
 
     containerClickHandler(event) {
-        if (!this.isReadOnly) return;
-
-        // Find the closest avatar image element
         const avatarElement = event.target.closest('.draggable-avatar');
-        if (!avatarElement) return;
+        const resizeHandle = event.target.closest('.resize-handle');
 
-        const index = avatarElement.dataset.index;
-        if (index !== undefined) {
-            event.preventDefault();
-            event.stopPropagation();
-            const assignment = this.state.seatAssignments[index];
-            this.showUserCard(assignment, avatarElement);
+        if (resizeHandle) {
+            return;
+        }
+
+        if (avatarElement) {
+            const index = parseInt(avatarElement.dataset.index);
+
+            if (this.isReadOnly) {
+                event.preventDefault();
+                event.stopPropagation();
+                const assignment = this.state.seatAssignments[index];
+                this.showUserCard(assignment, avatarElement);
+            } else {
+                this.selectAvatar(index);
+            }
+            return;
+        }
+
+        if (!this.isReadOnly) {
+            this.deselectAvatar();
         }
     }
 
@@ -166,6 +184,10 @@ export class ImagePreviewField extends ImageField {
         container.el.addEventListener("click", this.containerClickHandler);
 
         container.el.appendChild(svgEl);
+
+        if (this.state.selectedAvatarIndex !== -1 && !this.isReadOnly) {
+            setTimeout(() => this.renderResizeHandles(), 10);
+        }
     }
 
     makeAvatarsDraggable() {
@@ -241,7 +263,7 @@ export class ImagePreviewField extends ImageField {
                     const seatAssignments = await this.orm.searchRead(
                         "rs.location.seat.assignment",
                         [["location_id", "=", parseInt(this.id)]],
-                        ["user_id", "position_x", "position_y"],
+                        ["user_id", "position_x", "position_y", "avatar_size"],
                         { limit: 0 }
                     );
 
@@ -341,12 +363,14 @@ export class ImagePreviewField extends ImageField {
         seatAssignments.forEach((assignment, index) => {
             const image = document.createElementNS("http://www.w3.org/2000/svg", "image");
 
-            // Verwende die normalisierte Größe für konsistente Darstellung
-            const avatarOffset = normalizedAvatarSize / 2;
+            // Use stored avatar size or default normalized size
+            const avatarSize = assignment.avatar_size || normalizedAvatarSize;
+            const avatarOffset = avatarSize / 2;
+
             image.setAttribute("x", assignment.position_x - avatarOffset);
             image.setAttribute("y", assignment.position_y - avatarOffset);
-            image.setAttribute("width", normalizedAvatarSize);
-            image.setAttribute("height", normalizedAvatarSize);
+            image.setAttribute("width", avatarSize);
+            image.setAttribute("height", avatarSize);
             image.setAttribute("href", assignment.avatar);
             image.setAttribute("class", "draggable-avatar");
 
@@ -424,6 +448,17 @@ export class ImagePreviewField extends ImageField {
 
             imageElement.setAttribute("x", initialX + dx);
             imageElement.setAttribute("y", initialY + dy);
+
+            // Update resize handles if this avatar is selected
+            const avatarIndex = parseInt(imageElement.dataset.index);
+            if (this.state.selectedAvatarIndex === avatarIndex) {
+                // Update assignment position in real-time for resize handles
+                const avatarSize = parseFloat(imageElement.getAttribute("width"));
+                const avatarOffset = avatarSize / 2;
+                assignment.position_x = parseFloat(imageElement.getAttribute("x")) + avatarOffset;
+                assignment.position_y = parseFloat(imageElement.getAttribute("y")) + avatarOffset;
+                this.renderResizeHandles();
+            }
         };
 
         const onMouseUp = async () => {
@@ -452,6 +487,183 @@ export class ImagePreviewField extends ImageField {
 
         document.addEventListener("mousemove", onMouseMove);
         document.addEventListener("mouseup", onMouseUp);
+    }
+
+    // Select avatar for editing
+    selectAvatar(index) {
+        this.state.selectedAvatarIndex = index;
+        this.renderResizeHandles();
+    }
+
+    // Deselect avatar
+    deselectAvatar() {
+        this.state.selectedAvatarIndex = -1;
+        this.removeResizeHandles();
+    }
+
+    // Render resize handles around selected avatar
+    renderResizeHandles() {
+        if (!this.container.el || this.state.selectedAvatarIndex === -1) return;
+
+        const svg = this.container.el.querySelector('svg');
+        if (!svg) return;
+
+        // Remove existing handles
+        this.removeResizeHandles();
+
+        const assignment = this.state.seatAssignments[this.state.selectedAvatarIndex];
+        if (!assignment) return;
+
+        // Get current avatar size from the DOM element or assignment
+        const avatarElement = this.container.el.querySelector(`[data-index="${this.state.selectedAvatarIndex}"]`);
+        const avatarSize = avatarElement ?
+            parseFloat(avatarElement.getAttribute("width")) :
+            parseFloat(assignment.avatar_size || this.props.avatar_size || 20);
+
+        const avatarX = assignment.position_x - avatarSize / 2;
+        const avatarY = assignment.position_y - avatarSize / 2;
+
+        // Create resize handles group
+        const handlesGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        handlesGroup.setAttribute("id", "resize-handles");
+
+        // Selection border
+        const selectionRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        selectionRect.setAttribute("x", avatarX - 2);
+        selectionRect.setAttribute("y", avatarY - 2);
+        selectionRect.setAttribute("width", avatarSize + 4);
+        selectionRect.setAttribute("height", avatarSize + 4);
+        selectionRect.setAttribute("fill", "none");
+        selectionRect.setAttribute("stroke", "#007cff");
+        selectionRect.setAttribute("stroke-width", "2");
+        selectionRect.setAttribute("stroke-dasharray", "5,5");
+        handlesGroup.appendChild(selectionRect);
+
+        // Resize handle (bottom-right corner)
+        const handle = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        handle.setAttribute("x", avatarX + avatarSize - this.handleSize / 2);
+        handle.setAttribute("y", avatarY + avatarSize - this.handleSize / 2);
+        handle.setAttribute("width", this.handleSize);
+        handle.setAttribute("height", this.handleSize);
+        handle.setAttribute("fill", "#007cff");
+        handle.setAttribute("stroke", "#ffffff");
+        handle.setAttribute("stroke-width", "1");
+        handle.setAttribute("class", "resize-handle");
+        handle.setAttribute("data-handle-type", "se");
+        handle.style.cursor = "se-resize";
+        handle.style.pointerEvents = "all";
+
+        // Add resize event listener
+        handle.addEventListener("mousedown", (event) => {
+            this.startResize(event, this.state.selectedAvatarIndex, "se");
+        });
+
+        handlesGroup.appendChild(handle);
+        svg.appendChild(handlesGroup);
+    }
+
+    // Remove resize handles
+    removeResizeHandles() {
+        if (!this.container.el) return;
+
+        const svg = this.container.el.querySelector('svg');
+        if (!svg) return;
+
+        const handlesGroup = svg.querySelector("#resize-handles");
+        if (handlesGroup) {
+            handlesGroup.remove();
+        }
+    }
+
+    // Start resize operation
+    startResize(event, avatarIndex, handleType) {
+        if (this.isReadOnly) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.state.isResizing = true;
+        this.state.resizeHandleType = handleType;
+
+        const assignment = this.state.seatAssignments[avatarIndex];
+        const avatarElement = this.container.el.querySelector(`[data-index="${avatarIndex}"]`);
+
+        if (!assignment || !avatarElement) return;
+
+        const initialSize = parseFloat(assignment.avatar_size || this.props.avatar_size || 20);
+
+        // Store initial mouse coordinates for relative resize calculation
+        const startScreenX = event.clientX;
+        const startScreenY = event.clientY;
+
+        const onMouseMove = (moveEvent) => {
+            if (!this.state.isResizing) return;
+
+            // Calculate mouse movement in screen pixels
+            const deltaScreenX = moveEvent.clientX - startScreenX;
+            const deltaScreenY = moveEvent.clientY - startScreenY;
+
+            // Use diagonal distance for resize calculation
+            const deltaDistance = Math.sqrt(deltaScreenX * deltaScreenX + deltaScreenY * deltaScreenY);
+
+            // Determine resize direction (positive = grow, negative = shrink)
+            const resizeDirection = (deltaScreenX + deltaScreenY) >= 0 ? 1 : -1;
+
+            // Calculate new size based on mouse movement
+            // Scale factor adjusts sensitivity (smaller = more sensitive)
+            const scaleFactor = 0.5;
+            let newSize = initialSize + (deltaDistance * resizeDirection * scaleFactor);
+
+            // Apply size constraints
+            newSize = Math.max(this.minAvatarSize, Math.min(this.maxAvatarSize, newSize));
+
+            // Update avatar size visually
+            this.updateAvatarSize(avatarIndex, newSize);
+            this.renderResizeHandles(); // Update handles position
+        };
+
+        const onMouseUp = async () => {
+            if (!this.state.isResizing) return;
+
+            this.state.isResizing = false;
+            this.state.resizeHandleType = null;
+
+            // Save the new size to database
+            const newSize = parseFloat(avatarElement.getAttribute("width"));
+            assignment.avatar_size = newSize;
+
+            await this.orm.write("rs.location.seat.assignment", [assignment.id], {
+                avatar_size: newSize,
+            });
+
+            await this.props.record.load();
+
+            // Remove event listeners
+            document.removeEventListener("mousemove", onMouseMove);
+            document.removeEventListener("mouseup", onMouseUp);
+        };
+
+        document.addEventListener("mousemove", onMouseMove);
+        document.addEventListener("mouseup", onMouseUp);
+    }
+
+    // Update avatar size visually
+    updateAvatarSize(avatarIndex, newSize) {
+        const avatarElement = this.container.el.querySelector(`[data-index="${avatarIndex}"]`);
+        if (!avatarElement) return;
+
+        const assignment = this.state.seatAssignments[avatarIndex];
+        if (!assignment) return;
+
+        // Update avatar element
+        const offset = newSize / 2;
+        avatarElement.setAttribute("x", assignment.position_x - offset);
+        avatarElement.setAttribute("y", assignment.position_y - offset);
+        avatarElement.setAttribute("width", newSize);
+        avatarElement.setAttribute("height", newSize);
+
+        // Update assignment object
+        assignment.avatar_size = newSize;
     }
 }
 
