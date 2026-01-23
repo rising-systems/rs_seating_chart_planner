@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Sitzplan Planer',
+    'name': 'Seating Chart Planner',
     'summary': '''
-        Visuelle Sitzpläne zum Zuweisen und Verfolgen von Arbeitsplätzen
-        - Ein weiteres großartiges Modul von rising systems AG
+        Visual seat plans to assign and track workplaces
+        - Another awesome module by rising systems AG
         ''',
     'version': '1.0.0',
     'author': 'rising systems AG',
     'license': 'Other proprietary',
-    'website': 'https://www.rising-systems.de/r/seatingchart',
+    'website': 'https://www.rising-systems.de/r/0TQ',
     'support': 'odoo@rising-systems.de',
     'category': 'Productivity',
     'application': False,
