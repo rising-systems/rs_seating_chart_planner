@@ -19,6 +19,10 @@
         font-weight: normal;
         font-style: normal;
     }
+
+    #rsCarousel .carousel-item {
+        transition: transform 1.5s ease-in-out;
+    }
     
 </style>
 <div class="container-fluid" style="background-color: black; color: white;">
@@ -75,7 +79,7 @@
             </ul>
         </div>
 
-        <div id="rsCarousel" class="row carousel slide my-5" data-bs-ride="carousel">
+        <div id="rsCarousel" class="row carousel slide my-5" data-bs-ride="carousel" data-bs-interval="5000">
             <div class="carousel-inner text-center">
                 <div class="carousel-item active text-center justify-content-center">
                     <img src="images/01.png" class="img-fluid" style="max-width: 800px; width: 100%;" alt="Image 01">
