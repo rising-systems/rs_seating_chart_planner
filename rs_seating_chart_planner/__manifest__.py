@@ -15,7 +15,7 @@
     'installable': True,
     'auto_install': False,
     'images': ['static/description/images/store-cover.gif'],
-    'depends': ['base', 'hr', 'rs_locations_manager'],
+    'depends': ['base', 'rs_locations_manager'],
     'data': [
         'security/ir.model.access.csv',
         'views/location/admin/rs_location_kanban_inherit.xml',
