@@ -2,8 +2,8 @@
 {
     'name': 'Locations Manager',
     'summary': '''
-        Location management module to display and organize locations with 
-        basic hierarchy support. Allows tracking of location names and their 
+        Location management module to display and organize locations with
+        basic hierarchy support. Allows tracking of location names and their
         parent-child relationships.
         Another awesome module by rising systems AG
         ''',
